@@ -56,7 +56,6 @@ def main():
     DishesId		INT NOT NULL,
     OrderingId		INT NOT NULL,
     Quantity		INT NOT NULL,
-    Price			FLOAT NOT NULL,
     FOREIGN KEY (DishesId) REFERENCES Dishes (Id),
     FOREIGN KEY (OrderingId) REFERENCES Ordering (Id)
 );"""
