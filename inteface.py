@@ -1,7 +1,12 @@
-from tkinter import*
+from tkinter import* 
+import tkinter as tk
+from tkinter import ttk, messagebox
 from PIL import ImageTk,Image 
 import random
 import time
+import sqlite3
+from student import Student
+
 
 root = Tk()
 # Set screen initial
@@ -114,8 +119,8 @@ multiply.grid(row=4,column=3)
 btn0=Button(block_right,padx=16,pady=16,bd=3, fg="black", font=('ariel', 20 ,'bold'),text="0",bg="light blue",relief=RIDGE, command=lambda: bottom_click(0) )
 btn0.grid(row=5,column=0)
 
-btnc=Button(block_right,padx=16,pady=16,bd=3, fg="black", font=('ariel', 19 ,'bold'),text="C",bg="light blue",relief=RIDGE, command=clrdisplay)
-btnc.grid(row=5,column=1)
+btn_C=Button(block_right,padx=16,pady=16,bd=3, fg="black", font=('ariel', 19 ,'bold'),text="C",bg="light blue",relief=RIDGE, command=clrdisplay)
+btn_C.grid(row=5,column=1)
 
 Decimal=Button(block_right,padx=16,pady=16,bd=3, fg="black", font=('ariel', 21 ,'bold'),text=".",bg="light blue",relief=RIDGE, command=lambda: bottom_click(".") )
 Decimal.grid(row=5,column=2)
@@ -123,8 +128,8 @@ Decimal.grid(row=5,column=2)
 Division=Button(block_right,padx=16,pady=16,bd=3, fg="black", font=('ariel', 21 ,'bold'),text="/",bg="light blue",relief=RIDGE, command=lambda: bottom_click("/") )
 Division.grid(row=5,column=3)
 
-btnequal=Button(block_right,padx=16,pady=16,bd=3,width = 16, fg="black", font=('ariel', 20 ,'bold'),text="=",bg="light blue",relief=RIDGE,command=eqals)
-btnequal.grid(columnspan=4)
+btn_equal=Button(block_right,padx=16,pady=16,bd=3,width = 16, fg="black", font=('ariel', 20 ,'bold'),text="=",bg="light blue",relief=RIDGE,command=eqals)
+btn_equal.grid(columnspan=4)
 
 
 # ================ Block_left(menu) ================ #
@@ -266,7 +271,7 @@ btn_exit.grid(row=7, column=3)
 
 
 def price():
-    roo = Tk()
+    roo = tk.Tk()
     roo.geometry("500x300+0+0")
     roo.title("Price List")
     lbl_restaurant = Label(roo, font=('aria', 15, 'bold italic'), text="Products", bg="burlywood3", fg="black", bd=5)
@@ -311,8 +316,21 @@ def price():
 
     roo.mainloop()
 
+
+
 btn_price=Button(block_left,padx=16,pady=8, bd=10 ,fg="white",font=('ariel' ,16,'bold'),width=10, text="PRICE", bg="green",command=price)
 btn_price.grid(row=7, column=0)
+
+def call_back():
+    student_display = Student
+    return student_display
+
+btn_add_customer=Button(block_left,padx=16,pady=8, bd=10 ,fg="black",font=('ariel' ,16,'bold'),width=10, text="Add Customer", bg="deep sky blue", command=call_back)
+btn_add_customer.grid(row=9, column=1)
+
+btn_add_dishes=Button(block_left,padx=16,pady=8, bd=10 ,fg="black",font=('ariel' ,16,'bold'),width=10, text="Add Dishes", bg="deep sky blue",command=price)
+btn_add_dishes.grid(row=9, column=2)
+
 
 root.mainloop()
 
