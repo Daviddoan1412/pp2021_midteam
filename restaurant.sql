@@ -1,7 +1,7 @@
 CREATE DATABASE resma;
 USE resma;
 CREATE TABLE Customer (
-	Id					INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	Id					INT NOT NULL  PRIMARY KEY,
 	Full_Name			VARCHAR(200) NOT NULL ,
     Phone				VARCHAR(20) NOT NULL,
     Number_people		INT NOT NULL,
@@ -25,8 +25,7 @@ CREATE TABLE Dishes_Ordering (
     OrderingId		INT NOT NULL REFERENCES Ordering(Id),
 	Quantity		INT NOT NULL
 );
-DROP TABLE Dishes;
-DROP TABLE Customer;
+
 INSERT INTO Dishes(Id,Dish_name,Price)
 VALUES (1,'Buri',250),
        (2,'Grilled cod fish',360),
@@ -36,8 +35,9 @@ VALUES (1,'Buri',250),
        (6,'Salmon',325),
        (7,'Snapper',185),
        (8,'Chankonabe',80);
-UPDATE Dishes SET Dish_name='hyadvw',Price=1 WHERE Id = 8;
+
 select * from Customer;
-select * from Dishes
+select * from Dishes;
+
 
 

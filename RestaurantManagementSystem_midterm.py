@@ -34,18 +34,22 @@ def addCUS():
     b=txtPhone.get()
     c=txtNumber_people.get()
     d=txtArrive_time.get()
+    f = txtIdCus.get()
 
-    try:
-        sql = "INSERT INTO Customer (Full_Name, Phone,Number_people,Arrive_time) VALUES (%s, %s,%s,%s)"
-        val = (a, b, c, d)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Insert Customer successfully")
+    if (a == "") | (b == "") | (c == "") | (d == "") | (f==""):
+        messagebox.showinfo("information", "We cannot add Customer")
+    else:
+        try:
+            sql = "INSERT INTO Customer (Id,Full_Name, Phone,Number_people,Arrive_time) VALUES (%s, %s,%s,%s,%s)"
+            val = (f,a, b, c, d)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Insert Customer successfully")
 
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 
 def updateCUS():
@@ -54,18 +58,22 @@ def updateCUS():
     b=txtPhone.get()
     c=txtNumber_people.get()
     d=txtArrive_time.get()
+    f = txtIdCus.get()
 
-    try:
-        sql = "UPDATE Customer SET  Phone=%s,Number_people=%s,Arrive_time=%s WHERE Id=%s"
-        val = (a, b, c, d)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Update Customer successfully")
+    if (a == "") | (b == "") | (c == "") | (d == "")| (f==""):
+        messagebox.showinfo("information", "We cannot update Customer")
+    else:
+        try:
+            sql = "UPDATE Customer SET Full_Name=%s, Phone=%s,Number_people=%s,Arrive_time=%s WHERE Id=%s"
+            val = (a, b, c, d, f)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Update Customer successfully")
 
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 
 def deleteCUS():
@@ -74,18 +82,22 @@ def deleteCUS():
     b = txtPhone.get()
     c = txtNumber_people.get()
     d = txtArrive_time.get()
+    f = txtIdCus.get()
 
-    try:
-        sql = "DELETE FROM Customer WHERE Id = %s"
-        val=(a,)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Delete Customer successfully")
+    if f == "" :
+        messagebox.showinfo("information", "We cannot Delete Customer")
+    else:
+        try:
+            sql = "DELETE FROM Customer WHERE Id = %s"
+            val=(f,)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Delete Customer successfully")
 
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 
 def addPRODUCT():
@@ -93,53 +105,58 @@ def addPRODUCT():
     a=txt_id.get()
     b = txtDish_Name.get()
     c = txtPrice.get()
-
-    try:
-        sql = "INSERT INTO Dishes (Id,Dish_name, Price) VALUES (%s, %s,%s)"
-        val = (a, b,c)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Insert product successfully")
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+    if (a == "") | (b == "") | (c == ""):
+        messagebox.showinfo("information", "We cannot add product")
+    else:
+        try:
+            sql = "INSERT INTO Dishes (Id,Dish_name, Price) VALUES (%s, %s,%s)"
+            val = (a, b,c)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Insert product successfully")
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 def updatePRODUCT():
 
     a = txt_id.get()
     b= txtDish_Name.get()
     c = txtPrice.get()
+    if (a == "") | (b == "") | (c == ""):
+        messagebox.showinfo("information", "We cannot Update product")
+    else:
+        try:
+            sql = "UPDATE Dishes SET Dish_name= %s, Price= %s WHERE Id= %s"
+            val = (b,c,a)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Update product successfully")
 
-    try:
-        sql = "UPDATE Dishes SET Dish_name= %s, Price= %s WHERE Id= %s"
-        val = (a,b,c)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Update product successfully")
-
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 def deletePRODUCT():
 
     a = txt_id.get()
     b = txtDish_Name.get()
     c = txtPrice.get()
-
-    try:
-        sql = "DELETE FROM Dishes WHERE Id = %s"
-        val=(a,)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Delete Customer successfully")
-
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+    if a == "":
+        messagebox.showinfo("information", "We cannot Delete product")
+    else:
+        try:
+            sql = "DELETE FROM Dishes WHERE Id = %s"
+            val=(a,)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Delete product successfully")
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 def addOrdering():
     global Id
@@ -147,18 +164,20 @@ def addOrdering():
 
     a=Id.get()
     b=CustomerId.get()
+    if b== "":
+        messagebox.showinfo("information", "We cannot add Ordering")
+    else:
+        try:
+            sql = "INSERT INTO Ordering (CustomerId,) VALUES (%s)"
+            val = (b,)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Insert Ordering successfully")
 
-    try:
-        sql = "INSERT INTO Ordering (CustomerId,) VALUES (%s)"
-        val = (b,)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Insert Ordering successfully")
-
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 def updateOrdering():
     global Id
@@ -166,34 +185,39 @@ def updateOrdering():
 
     a = Id.get()
     b = CustomerId.get()
+    if (b== "" )|(a ==""):
+        messagebox.showinfo("information", "We cannot Update Ordering")
+    else:
+        try:
+            sql = "UPDATE Ordering SET CustomerId= %s  WHERE Id= %s"
+            val = (a, b)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Update Ordering successfully")
 
-    try:
-        sql = "UPDATE Ordering SET CustomerId= %s  WHERE Id= %s"
-        val = (a, b)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Update Ordering successfully")
-
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 def deleteOrdering():
     global Id
 
     a = Id.get()
-    try:
-        sql = "DELETE FROM Ordering WHERE Id = %s"
-        val=(a,)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        messagebox.showinfo("information", "Delete Ordering successfully")
+    if a== "":
+        messagebox.showinfo("information", "We cannot Delete Ordering")
+    else:
+        try:
+            sql = "DELETE FROM Ordering WHERE Id = %s"
+            val=(a,)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            messagebox.showinfo("information", "Delete Ordering successfully")
 
-    except EXCEPTION as e:
-        print(e)
-        mydb.rollback()
-    mydb.close()
+        except EXCEPTION as e:
+            print(e)
+            mydb.rollback()
+        mydb.close()
 
 
 def add_Dishes_Ordering():
@@ -338,29 +362,35 @@ def Exit():
         return None
 
 def Reset():
+    reset_program = messagebox.askyesno(
+        title='Restaurant Management System',
+        message='Confirm if you want to reset program?')
+    if reset_program > 0:
 
-    txtFull_Name.delete(0, END)
-    txtPhone.delete(0, END)
-    txtNumber_people.delete(0, END)
-    txtArrive_time.delete(0, END)
+        txtFull_Name.delete(0, END)
+        txtPhone.delete(0, END)
+        txtNumber_people.delete(0, END)
+        txtArrive_time.delete(0, END)
 
-    txtDish_Name.delete(0, END)
-    txtPrice.delete(0, END)
-    txt_id.delete(0, END)
+        txtDish_Name.delete(0, END)
+        txtPrice.delete(0, END)
+        txt_id.delete(0, END)
 
-    txt_reference.delete(0, END)
-    txt_Buri.delete(0, END)
-    txt_Grilled_cod_fish.delete(0, END)
-    txt_Herring_fish.delete(0, END)
-    txt_karikari.delete(0, END)
-    txt_Saba.delete(0, END)
+        txt_reference.delete(0, END)
+        txt_Buri.delete(0, END)
+        txt_Grilled_cod_fish.delete(0, END)
+        txt_Herring_fish.delete(0, END)
+        txt_karikari.delete(0, END)
+        txt_Saba.delete(0, END)
 
-    txt_Salmon.delete(0, END)
-    txt_Snapper.delete(0, END)
-    txt_Chankonabe.delete(0, END)
-    txt_Cost.delete(0, END)
-    txt_Total.delete(0, END)
-    txt_Services.delete(0, END)
+        txt_Salmon.delete(0, END)
+        txt_Snapper.delete(0, END)
+        txt_Chankonabe.delete(0, END)
+        txt_Cost.delete(0, END)
+        txt_Total.delete(0, END)
+        txt_Services.delete(0, END)
+    else:
+        return None
 
 # ====================================== initial variable ======================================#
 
@@ -521,7 +551,17 @@ bottomFrame = Frame(mainframe,
                     relief=RIDGE)
 bottomFrame.pack(side=BOTTOM)
 
-# ================================ Get information of customer ================================ #
+# get information of customer
+
+lblIdCus= Label(leftframe1,
+                     font=('arial', 12, 'bold'),
+                     text="CustomerId", padx=1)
+lblIdCus.grid(row=0, column=0, sticky=W)
+
+txtIdCus = Entry(leftframe1,
+                     font=('arial', 12, 'bold'),
+                     width=20)
+txtIdCus.grid(row=0, column=1, pady=3, padx=20)
 
 lblFull_Name = Label(leftframe1,
                      font=('arial', 12, 'bold'),
@@ -779,7 +819,8 @@ lbl_Chankonabe.grid(row=4,column=2)
 txt_Chankonabe = Entry(rightframe1,
                        font=('ariel', 16, 'bold italic'),
                        textvariable=Chankonabe,
-                       bd=6,insertwidth=4,
+                       bd=6,
+                       insertwidth=4,
                        bg="white",
                        justify='right')
 txt_Chankonabe.grid(row=4, column=3)
@@ -854,22 +895,29 @@ img_banner.place(x=15, y=400)
 btnAdd = Button(bottomFrame,
                 bd=4,
                 font=('arial', 13, 'bold'),
-                width=13,
+                width=18,
                 height=3,
                 text='Add Customer',
                 command=addCUS)
 btnAdd.grid(row=0, column=1, padx=4, pady=1)
 
+btndelete= Button(bottomFrame,
+                bd=4,
+                font=('arial', 13, 'bold'),
+                width=18,
+                height=3,
+                text='Delete Customer',
+                command=deleteCUS)
+btndelete.grid(row=0, column=2, padx=4, pady=1)
 
-btnAddDish= Button(bottomFrame,
-                   bd=4,
-                   font=('arial', 13, 'bold'),
-                   width=13,
-                   height=3,
-                   text='Add Dish',
-                   command=addPRODUCT)
-btnAddDish.grid(row=0, column=2, padx=4, pady=1)
-
+btnUpdateCUS = Button(bottomFrame,
+                        bd=4,
+                        font=('arial', 13, 'bold'),
+                        width=18,
+                        height=3,
+                        text='Update Customer',
+                        command=updateCUS)
+btnUpdateCUS.grid(row=0, column=3, padx=4, pady=1)
 
 btnDisCus = Button(bottomFrame,
                    bd=4,
@@ -877,58 +925,77 @@ btnDisCus = Button(bottomFrame,
                    width=18,
                    height=3,
                    text='Display Customer',
-                   command= dis_customer)
-btnDisCus.grid(row=0, column=3, padx=4, pady=1)
+                   command=dis_customer)
+btnDisCus.grid(row=0, column=4, padx=4, pady=1)
 
 
-btnMenu = Button(bottomFrame,
-                 bd=4,
-                 font=('arial', 13, 'bold'),
-                 width=13,
-                 height=3,
-                 text='Menu',
-                 command= Menu)
-btnMenu.grid(row=0, column=4, padx=4, pady=1)
 
+btnAddDish= Button(bottomFrame,
+                   bd=4,
+                   font=('arial', 13, 'bold'),
+                   width=18,
+                   height=3,
+                   text='Add Dish',
+                   command=addPRODUCT)
+btnAddDish.grid(row=1, column=1, padx=4, pady=1)
+
+btndeleteproduct= Button(bottomFrame,
+                        bd=4,
+                        font=('arial', 13, 'bold'),
+                        width=18,
+                        height=3,
+                        text='Delete Dish',
+                        command=deletePRODUCT)
+btndeleteproduct.grid(row=1, column=2, padx=4, pady=1)
 
 btnUpdate_dish = Button(bottomFrame,
                         bd=4,
                         font=('arial', 13, 'bold'),
-                        width=13,
+                        width=18,
                         height=3,
-                        text='Delete Dish',
-                        command= deletePRODUCT)
-btnUpdate_dish.grid(row=0, column=5, padx=4, pady=1)
+                        text='Update Dishes',
+                        command=updatePRODUCT)
+btnUpdate_dish.grid(row=1, column=3, padx=4, pady=1)
 
+btnMenu = Button(bottomFrame,
+                 bd=4,
+                 font=('arial', 13, 'bold'),
+                 width=18,
+                 height=3,
+                 text='Menu',
+                 command=Menu)
+btnMenu.grid(row=1, column=4, padx=4, pady=1)
 
 
 btnTotal = Button(bottomFrame,
                   bd=4,
                   font=('arial', 13, 'bold'),
-                  width=13,
+                  width=18,
                   height=3,
                   text='Total',
-                  command= Ref)
-btnTotal.grid(row=0, column=6, padx=4, pady=1)
+                  command=Ref)
+btnTotal.grid(row=2, column=1, padx=4, pady=1)
 
 
-btnUpdate = Button(bottomFrame,
+btnReset = Button(bottomFrame,
                    bd=4,
                    font=('arial', 13, 'bold'),
-                   width=13,
+                   width=18,
                    height=3,
                    text='Reset',
                    command=Reset)
-btnUpdate.grid(row=0, column=7, padx=4, pady=1)
+btnReset.grid(row=2, column=2, padx=4, pady=1)
 
 
-btnUpdate = Button(bottomFrame,
+btnExit = Button(bottomFrame,
                    bd=4, font=('arial', 13, 'bold'),
-                   width=13,
+                   width=18,
                    height=3,
                    text='Exit',
                    command=Exit)
-btnUpdate.grid(row=0, column=8, padx=4, pady=1)
+btnExit.grid(row=2, column=3, padx=4, pady=1)
+
+
 
 if __name__ =='__main__':
     root.mainloop()
