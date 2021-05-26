@@ -1,3 +1,4 @@
+drop database resma;
 CREATE DATABASE resma;
 USE resma;
 CREATE TABLE Customer (
@@ -35,9 +36,8 @@ VALUES (1,'Buri',250),
        (6,'Salmon',325),
        (7,'Snapper',185),
        (8,'Chankonabe',80);
-
 select * from Customer;
 select * from Dishes;
 
-
-
+select COUNT(Id) 
+from Dishes;
